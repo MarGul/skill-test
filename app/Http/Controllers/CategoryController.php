@@ -54,7 +54,8 @@ class CategoryController extends Controller
 
         $category = app(CreateCategory::class)->execute($request->title, $request->description);
 
-        return Redirect::route('categories.edit', $category);
+        return Redirect::route('categories.edit', $category)
+            ->with('success', "Category created successfully");
     }
 
     /**
@@ -89,6 +90,7 @@ class CategoryController extends Controller
 
         $category = app(UpdateCategory::class)->execute($category, $request->title, $request->description);
 
-        return Redirect::back();
+        return Redirect::back()
+            ->with('success', "Category updated successfully");
     }
 }

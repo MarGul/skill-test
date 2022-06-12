@@ -44,7 +44,8 @@ class ProductController extends Controller
             Category::find($attributes['category']),
         );
 
-        return Redirect::route('products.edit', $product);
+        return Redirect::route('products.edit', $product)
+            ->with('success', 'Product created successfully');
     }
 
     public function edit(Product $product)
@@ -69,13 +70,15 @@ class ProductController extends Controller
             $attributes['category'] ?? $product->category_id,
         );
 
-        return Redirect::back();
+        return Redirect::back()
+            ->with('success', 'Product updated successfully');
     }
 
     public function destroy(Product $product): RedirectResponse
     {
         app(DeleteProduct::class)->execute($product);
 
-        return Redirect::route('products.index');
+        return Redirect::route('products.index')
+            ->with('success', 'Product deleted successfully');
     }
 }

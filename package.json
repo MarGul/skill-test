@@ -21,5 +21,8 @@
         "tailwindcss": "^3.1.2",
         "vue": "^3.2.37",
         "vue-loader": "^16.2.0"
+    },
+    "dependencies": {
+        "vue-toastification": "^2.0.0-rc.5"
     }
 }
