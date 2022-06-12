@@ -1,36 +1,32 @@
 <template>
     <header>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold leading-tight text-gray-900">
-                <div class="flex justify-between">
-                    <h1 class="text-3xl font-bold leading-tight text-gray-900">
-                        View categories
-                    </h1>
-                    <Link
-                        v-if="categories.length"
-                        :href="route('products.create')"
-                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Create
-                    </Link>
-                </div>
-            </h1>
+            <div class="flex justify-between">
+                <h1 class="text-3xl font-bold leading-tight text-gray-900">
+                    View products
+                </h1>
+                <Link
+                    v-if="products.length"
+                    :href="route('products.create')"
+                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                    Create
+                </Link>
+            </div>
         </div>
     </header>
     <main>
         <div class="max-w-7xl mx-auto mt-8 sm:px-6 lg:px-8">
             <div class="bg-white shadow overflow-hidden sm:rounded-md">
                 <ul
-                    v-if="categories.length"
+                    v-if="products.length"
                     role="list"
                     class="divide-y divide-gray-200"
                 >
-                    <li v-for="category in categories" :key="category.id">
+                    <li v-for="product in products" :key="product.id">
                         <Link
                             :href="
-                                route('categories.edit', {
-                                    category: category.id,
-                                })
+                                route('products.edit', { product: product.id })
                             "
                             class="block hover:bg-gray-50"
                         >
@@ -42,7 +38,7 @@
                                         <div class="flex text-sm">
                                             <p
                                                 class="font-medium text-indigo-600 truncate"
-                                                v-text="category.title"
+                                                v-text="product.title"
                                             />
                                         </div>
                                         <div class="mt-2 flex">
@@ -67,10 +63,10 @@
                                                     Created on
                                                     <time
                                                         :datetime="
-                                                            category.created_at
+                                                            product.created_at
                                                         "
                                                         v-text="
-                                                            category.created_at
+                                                            product.created_at
                                                         "
                                                     />
                                                 </p>
@@ -100,7 +96,7 @@
                 </ul>
 
                 <Link
-                    :href="route('categories.create')"
+                    :href="route('products.create')"
                     v-else
                     class="relative block w-full border-2 border-gray-300 border-dashed rounded-lg p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
@@ -120,7 +116,7 @@
                         />
                     </svg>
                     <span class="mt-2 block text-sm font-medium text-gray-900">
-                        Create a new category
+                        Create a new product
                     </span>
                 </Link>
             </div>
@@ -132,7 +128,7 @@
 import { Link } from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
-    categories: {
+    products: {
         type: Array,
         required: true,
     },
