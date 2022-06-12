@@ -96,7 +96,9 @@
                                             Image
                                         </label>
                                         <div class="mt-1 flex items-center">
-                                            <span
+                                            <a
+                                                :href="photoPreview"
+                                                target="_blank"
                                                 class="inline-block h-20 w-20 rounded-full overflow-hidden bg-gray-100"
                                             >
                                                 <img
@@ -104,7 +106,7 @@
                                                     class="h-full w-full rounded-full object-cover object-center"
                                                     alt="product image"
                                                 />
-                                            </span>
+                                            </a>
                                             <input
                                                 type="file"
                                                 accept="image/*"

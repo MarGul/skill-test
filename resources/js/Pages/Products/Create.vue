@@ -96,15 +96,18 @@
                                             Image
                                         </label>
                                         <div class="mt-1 flex items-center">
-                                            <span
+                                            <component
+                                                :is="photoPreview ? 'a' : 'span'"
+                                                :href="photoPreview || '#'"
+                                                target="_blank"
                                                 class="inline-block h-20 w-20 rounded-full overflow-hidden bg-gray-100"
                                             >
                                                 <img
-                                                    :src="photoPreview"
+                                                    :src="photoPreview || 'http://www.vvc.cl/wp-content/uploads/2016/09/ef3-placeholder-image.jpg'"
                                                     class="h-full w-full rounded-full object-cover object-center"
                                                     alt="product image"
                                                 />
-                                            </span>
+                                            </component>
                                             <input
                                                 type="file"
                                                 accept="image/*"
@@ -260,9 +263,7 @@ const form = useForm({
     category: "",
 });
 
-const photoPreview = ref(
-    "http://www.vvc.cl/wp-content/uploads/2016/09/ef3-placeholder-image.jpg"
-);
+const photoPreview = ref(null);
 const photoInput = ref(null);
 
 function saveProduct() {
@@ -284,12 +285,6 @@ const updatePhotoPreview = () => {
 
     if (!photo) return;
 
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-        photoPreview.value = e.target.result;
-    };
-
-    reader.readAsDataURL(photo);
+    photoPreview.value = URL.createObjectURL(photo);
 };
 </script>
