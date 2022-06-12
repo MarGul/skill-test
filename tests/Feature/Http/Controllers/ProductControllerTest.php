@@ -36,7 +36,7 @@ class ProductControllerTest extends TestCase
 
     public function test_product_can_be_created()
     {
-        Storage::fake();
+        Storage::fake('public');
 
         $product = Product::factory()->make();
 
@@ -74,7 +74,7 @@ class ProductControllerTest extends TestCase
 
     public function test_product_can_be_updated()
     {
-        Storage::fake();
+        Storage::fake('public');
 
         $product = Product::factory()->create();
         $updatedProduct = Product::factory()->make();
@@ -103,7 +103,7 @@ class ProductControllerTest extends TestCase
 
     public function test_old_image_will_be_used_if_image_is_not_supplied_while_updating()
     {
-        Storage::fake();
+        Storage::fake('public');
 
         $product = Product::factory()->create();
 
@@ -116,7 +116,7 @@ class ProductControllerTest extends TestCase
 
     public function test_old_image_will_be_deleted_if_image_is_supplied_while_updating()
     {
-        Storage::fake();
+        Storage::fake('public');
 
         $product = Product::factory()->create([
             'image' => UploadedFile::fake()->create('test_image.jpeg')->store('products', 'public')
@@ -132,7 +132,7 @@ class ProductControllerTest extends TestCase
 
     public function test_product_can_be_deleted()
     {
-        Storage::fake();
+        Storage::fake('public');
 
         $product = Product::factory()->create();
 
