@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Actions\Products\CreateProduct;
 use App\Actions\Products\DeleteProduct;
 use App\Actions\Products\UpdateProduct;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
@@ -30,16 +31,9 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(ProductRequest $request): RedirectResponse
     {
-        $attributes = $request->validate([
-            "title" => ["required", "string", "max:255"],
-            "description" => ["required", "string", "max:2000"],
-            "image" => ["required", "image", "max:2000"],
-            "price" => ["required", "numeric", "min:0.1"],
-            "in_stock" => ["required", Rule::in(["yes", "no"])],
-            "category" => ["required", Rule::exists("categories", "id")]
-        ]);
+        $attributes = $request->validated();
 
         $product = app(CreateProduct::class)->execute(
             $attributes['title'],
@@ -61,25 +55,18 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        $attributes = $request->validate([
-            "title" => ["required", "string", "max:255"],
-            "description" => ["required", "string", "max:2000"],
-            "image" => ["sometimes", "nullable", "image", "max:2000"],
-            "price" => ["required", "numeric", "min:0.1"],
-            "in_stock" => ["required", Rule::in(["yes", "no"])],
-            "category" => ["required", Rule::exists("categories", "id")]
-        ]);
+        $attributes = $request->validated();
 
         $product = app(UpdateProduct::class)->execute(
             $product,
-            $attributes['title'],
-            $attributes['description'],
+            $attributes['title'] ?? $product->title,
+            $attributes['description'] ?? $product->description,
             $attributes['image'] ?? null,
-            $attributes['price'],
+            $attributes['price'] ?? $product->price,
             $attributes['in_stock'] === "yes" ? true : false,
-            $attributes['category'],
+            $attributes['category'] ?? $product->category_id,
         );
 
         return Redirect::back();

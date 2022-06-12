@@ -97,14 +97,9 @@ class ProductControllerTest extends TestCase
         Storage::fake();
 
         $product = Product::factory()->create();
-        $updatedProduct = Product::factory()->make();
 
         $this->patch(route('products.update', $product->id), [
-            'title' =>  $updatedProduct->title,
-            'description' =>  $updatedProduct->description,
-            'price' =>  $updatedProduct->price,
-            'in_stock' =>  $updatedProduct->in_stock ? "yes" : "no",
-            'category' =>  $updatedProduct->category->id,
+            'title' => 'updated title',
         ]);
 
         $this->assertSame($product->image, $product->refresh()->image);
@@ -117,15 +112,9 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create([
             'image' => UploadedFile::fake()->create('test_image.jpeg')->store('products', 'public')
         ]);
-        $updatedProduct = Product::factory()->make();
 
         $this->patch(route('products.update', $product->id), [
-            'title' =>  $updatedProduct->title,
-            'description' =>  $updatedProduct->description,
             'image' => UploadedFile::fake()->create('test_image.jpeg'),
-            'price' =>  $updatedProduct->price,
-            'in_stock' =>  $updatedProduct->in_stock ? "yes" : "no",
-            'category' =>  $updatedProduct->category->id,
         ]);
 
         $this->assertFileDoesNotExist($product->image);
