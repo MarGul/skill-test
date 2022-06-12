@@ -2,16 +2,19 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\Product;
+use App\Http\Controllers\ProductController;
+use App\Http\Requests\ProductRequest;
 use Tests\TestCase;
+use App\Models\Product;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
+use JMac\Testing\Traits\AdditionalAssertions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
 
 class ProductControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase, WithFaker, AdditionalAssertions;
 
     public function test_products_can_be_listed()
     {
@@ -23,6 +26,12 @@ class ProductControllerTest extends TestCase
     {
         $this->get(route('products.create'))
             ->assertOk();
+    }
+
+    public function test_correct_validation_is_used_while_creating_and_updating()
+    {
+        $this->assertActionUsesFormRequest(ProductController::class, 'store', ProductRequest::class);
+        $this->assertActionUsesFormRequest(ProductController::class, 'update', ProductRequest::class);
     }
 
     public function test_product_can_be_created()
