@@ -6,8 +6,6 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\RedirectResponse;
 use App\Actions\Products\CreateProduct;
 use App\Actions\Products\DeleteProduct;
