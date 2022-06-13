@@ -45,7 +45,7 @@ class ProductControllerTest extends TestCase
             'description' =>  $product->description,
             'image' =>  UploadedFile::fake()->image('test_image.jpeg'),
             'price' =>  $product->price,
-            'in_stock' =>  $product->in_stock ? "yes" : "no",
+            'in_stock' =>  $product->in_stock,
             'category' =>  $product->category->id,
         ])
             ->assertRedirect(route("products.update", Product::first()->id));
@@ -85,7 +85,7 @@ class ProductControllerTest extends TestCase
                 'description' =>  $updatedProduct->description,
                 'image' =>  UploadedFile::fake()->image('test_image.jpeg'),
                 'price' =>  $updatedProduct->price,
-                'in_stock' =>  $updatedProduct->in_stock ? "yes" : "no",
+                'in_stock' =>  $updatedProduct->in_stock,
                 'category' =>  $updatedProduct->category->id,
             ])
             ->assertRedirect(route("products.edit", $product->id));

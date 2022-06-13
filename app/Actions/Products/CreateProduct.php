@@ -13,7 +13,7 @@ class CreateProduct
         string $description,
         UploadedFile $image,
         float $price,
-        bool $inStock,
+        bool $in_stock,
         Category $category,
     ): Product {
         $product = $category->products()->create([
@@ -21,7 +21,7 @@ class CreateProduct
             'description' => $description,
             'image' => $image->store('products', 'public'),
             'price' => $price,
-            'in_stock' => $inStock,
+            'in_stock' => $in_stock,
         ]);
 
         return $product;

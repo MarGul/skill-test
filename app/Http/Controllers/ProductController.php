@@ -38,7 +38,7 @@ class ProductController extends Controller
             $attributes['description'],
             $attributes['image'],
             $attributes['price'],
-            $attributes['in_stock'] === "yes" ? true : false,
+            $attributes['in_stock'],
             Category::find($attributes['category']),
         );
 
@@ -64,7 +64,7 @@ class ProductController extends Controller
             $attributes['description'] ?? $product->description,
             $attributes['image'] ?? null,
             $attributes['price'] ?? $product->price,
-            $attributes['in_stock'] === "yes" ? true : false,
+            $attributes['in_stock'] ?? $product->in_stock,
             $attributes['category'] ?? $product->category_id,
         );
 

@@ -14,7 +14,7 @@ class UpdateProduct
         string $description,
         ?UploadedFile $image,
         float $price,
-        bool $inStock,
+        bool $in_stock,
         int $categoryId,
     ): Product {
         $oldImagePath = $product->image;
@@ -24,7 +24,7 @@ class UpdateProduct
             'description' => $description,
             'image' => $image ? $image->store('products', 'public') : $product->image,
             'price' => $price,
-            'in_stock' => $inStock,
+            'in_stock' => $in_stock,
             'category_id' => $categoryId,
         ]);
 

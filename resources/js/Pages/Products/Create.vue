@@ -175,8 +175,8 @@
                                                 class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                                 v-model="form.in_stock"
                                             >
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option :value="true">Yes</option>
+                                                <option :value="false">No</option>
                                             </select>
                                         </div>
                                         <div
@@ -259,7 +259,7 @@ const form = useForm({
     description: null,
     price: null,
     image: null,
-    in_stock: "yes",
+    in_stock: true,
     category: "",
 });
 

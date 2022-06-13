@@ -174,8 +174,8 @@
                                                 class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                                 v-model="form.in_stock"
                                             >
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option :value="true">Yes</option>
+                                                <option :value="false">No</option>
                                             </select>
                                         </div>
                                         <div
@@ -268,7 +268,7 @@ const form = useForm({
     description: props.product.description,
     price: props.product.price,
     image: null,
-    in_stock: props.product.in_stock ? "yes" : "no",
+    in_stock: props.product.in_stock,
     category: props.product.category_id,
 });
 
@@ -282,7 +282,7 @@ function saveProduct() {
 
     Inertia.post(
         route("products.update", { product: props.product.id }),
-        { _method: "patch", ...form },
+        { _method: "patch", ...form.data() },
         {
             onSuccess: () => (photoInput.value = ""),
         }

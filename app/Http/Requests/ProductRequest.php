@@ -32,7 +32,7 @@ class ProductRequest extends FormRequest
             "description" => [Rule::when($isUpdate, "sometimes"), "required", "string", "max:2000"],
             "image" => [Rule::when($isUpdate, ["sometimes", "nullable"], ["required"]), "image", "max:2000"],
             "price" => [Rule::when($isUpdate, "sometimes"), "required", "numeric", "min:0.1"],
-            "in_stock" => [Rule::when($isUpdate, "sometimes"), "required", Rule::in(["yes", "no"])],
+            "in_stock" => [Rule::when($isUpdate, "sometimes"), "required", "boolean"],
             "category" => [Rule::when($isUpdate, "sometimes"), "required", Rule::exists("categories", "id")]
         ];
     }
