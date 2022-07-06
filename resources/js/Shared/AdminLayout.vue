@@ -9,9 +9,9 @@
                         </div>
                         <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                             <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-                            <Link :href="route('categories.index')" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" aria-current="page">Categores</Link>
+                            <InertiaLink :href="route('categories.index')" :class="$page.url == '/categories'? 'border-indigo-500 border-b-2' : ''" class=" text-gray-900 inline-flex items-center px-1 pt-1  text-sm font-medium" aria-current="page">Categores</InertiaLink>
 
-                            <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Products</a>
+                            <InertiaLink :href="route('products.index')" :class="$page.url == '/products'? 'border-indigo-500 border-b-2' : ''"  class="text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">Products</InertiaLink>
                         </div>
                     </div>
                 </div>
@@ -25,5 +25,5 @@
 </template>
 
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3'
+import { InertiaLink } from '@inertiajs/inertia-vue3'
 </script>
