@@ -15,7 +15,7 @@ class StorageService
 
         $fileName = Str::random(30) . '.' . $file->getClientOriginalExtension();
 
-        $file->storeAs("public/products/images/", $fileName);
-        return "storage/products/images/" . $fileName;
+        $file->storeAs("images/products", $fileName);
+        return "images/products/" . $fileName;
     }
 }

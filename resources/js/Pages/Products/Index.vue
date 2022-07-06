@@ -1,12 +1,16 @@
 <template>
 	<header>
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between">
 			<h1 class="text-3xl font-bold leading-tight text-gray-900">View products</h1>
+			<Link v-if="props.products.length > 0"
+			      :href="route('products.create')"
+			      class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+			>Create product</Link>
 		</div>
 	</header>
 	<main>
 		<div class="max-w-7xl mx-auto mt-8 sm:px-6 lg:px-8">
-			<div class="bg-white shadow overflow-hidden sm:rounded-md">
+			<div v-if="props.products.length > 0" class="bg-white shadow overflow-hidden sm:rounded-md">
 				<ul role="list" class="divide-y divide-gray-200">
 					<li v-for="product in props.products" :key="product.id">
 						<Link :href="route('products.edit', {product: product.id})" class="block hover:bg-gray-50">
@@ -56,7 +60,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="bg-white shadow overflow-hidden sm:rounded-md mt-3">
+			<div v-else class="bg-white shadow overflow-hidden sm:rounded-md mt-3">
 				<Link :href="route('products.create')"
 				      class="relative block w-full border-2 border-gray-300 border-dashed rounded-lg p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 					<svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg"

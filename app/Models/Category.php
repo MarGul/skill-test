@@ -16,4 +16,9 @@ class Category extends Model
     {
         return Carbon::parse($value)->format('Y-m-d H:i');
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
