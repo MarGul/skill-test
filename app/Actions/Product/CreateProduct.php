@@ -18,18 +18,18 @@ class CreateProduct
         int $inStock,
         $image): Product
     {
-        $product =  Product::create([
+        $data = [
             'title' => $title,
             'description' => $description,
             'category_id' => $categoryId,
             'price' => $price,
             'in_stock' => $inStock
-        ]);
+        ];
 
-        if (count($image)) {
-            $product->update(['image' => $this->storageService->saveImage($image, $product)]);
+        if ($image) {
+            $data['image'] = $this->storageService->saveImage($image);
         }
 
-        return $product;
+        return Product::create($data);
     }
 }

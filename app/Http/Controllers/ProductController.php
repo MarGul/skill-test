@@ -54,7 +54,7 @@ class ProductController extends Controller
             $request->categoryId,
             $request->price,
             $request->inStock,
-            $request->allFiles()
+            $request->file('image')
         );
 
         return Redirect::route('products.index', [], 303)->with('success', 'Product created');
@@ -76,7 +76,7 @@ class ProductController extends Controller
             $request->categoryId,
             $request->price,
             !!$request->inStock,
-            $request->allFiles()
+            $request->file('image')
         );
 
         return Redirect::route('products.index', [], 303)->with('warning', 'Product updated');

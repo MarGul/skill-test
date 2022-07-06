@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->double('price')->nullable();
             $table->text('description')->nullable();
-            $table->unsignedSmallInteger('in_stock')->default(0);
+            $table->tinyInteger('in_stock')->default(0);
             $table->string('image')->nullable();
 
             $table->timestamps();

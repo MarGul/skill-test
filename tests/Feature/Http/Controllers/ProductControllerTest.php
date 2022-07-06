@@ -25,7 +25,8 @@ class ProductControllerTest extends TestCase
             'description' => 'Test Product Description',
             'categoryId' => $category->id,
             'price' => 1000,
-            'inStock' => 0
+            'inStock' => 0,
+            'image' => $this->faker->image
         ];
 
         $response = $this->post(route('products.store'), $data);
@@ -50,7 +51,8 @@ class ProductControllerTest extends TestCase
             'title' => $this->faker->sentence(3),
             'description' => $this->faker->sentence(8),
             'categoryId' => Category::first()->id,
-            'price' => $this->faker->numberBetween(0, 100000)
+            'price' => $this->faker->numberBetween(0, 100000),
+            'image' => $this->faker->image
         ];
 
 

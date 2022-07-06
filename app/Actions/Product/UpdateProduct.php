@@ -26,7 +26,8 @@ class UpdateProduct
             'price' => $price,
             'in_stock' => $inStock,
         ];
-        if (count($image)) {
+
+        if ($image) {
             $data['image'] = $this->storageService->saveImage($image, $product, true);
         }
 
