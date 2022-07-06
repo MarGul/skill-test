@@ -7,7 +7,7 @@
     <main>
         <div class="max-w-7xl mx-auto mt-8 sm:px-6 lg:px-8">
             <div class="bg-white shadow overflow-hidden sm:rounded-md">
-                <ul v-if="props.categories.length> 0" role="list" class="divide-y divide-gray-200">
+                <ul role="list" class="divide-y divide-gray-200">
                     <li v-for="category in props.categories" :key="category.id">
                         <Link :href="route('categories.edit', {category: category.id})" class="block hover:bg-gray-50">
                             <div class="px-4 py-4 flex items-center sm:px-6">
@@ -48,8 +48,9 @@
                         </Link>
                     </li>
                 </ul>
-
-                <Link :href="route('categories.create')" v-else
+            </div>
+	        <div class="bg-white shadow overflow-hidden sm:rounded-md mt-3">
+                <Link :href="route('categories.create')"
                     class="relative block w-full border-2 border-gray-300 border-dashed rounded-lg p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg"
                         stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">

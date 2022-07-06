@@ -9,14 +9,16 @@
                         </div>
                         <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                             <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-                            <Link :href="route('categories.index')" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" aria-current="page">Categores</Link>
+                            <Link :href="route('categories.index')" :class="{ 'active border-b-2': $page.url.startsWith('/categories') }" class="border-indigo-500 text-gray-900 hover:text-gray-500 hover:border-gray-300 hover:border-b-2 inline-flex items-center px-1 pt-1 text-sm font-medium">Categories</Link>
 
-                            <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Products</a>
+                            <Link :href="route('products.index')" :class="{ 'active border-b-2': $page.url.startsWith('/products') }" class="border-indigo-500 text-gray-900 hover:text-gray-500 hover:border-gray-300 hover:border-b-2 inline-flex items-center px-1 pt-1 text-sm font-medium">Products</Link>
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
+
+	      <Notifications/>
 
         <div class="py-10">
             <slot></slot>
@@ -26,4 +28,6 @@
 
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3'
+import Notifications from "@/Shared/Notifications";
+
 </script>
