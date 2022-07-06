@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +16,10 @@ Route::get('categories/create', [CategoryController::class, 'create'])->name('ca
 Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::get('categories/{category}', [CategoryController::class, 'edit'])->name('categories.edit');
 Route::patch('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+
+Route::get('products', [ProductController::class, 'index'])->name('products.index');
+Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('products', [ProductController::class, 'store'])->name('products.store');
+Route::get('products/{product}', [ProductController::class, 'edit'])->name('products.edit');
+Route::patch('products/{product}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
