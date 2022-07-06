@@ -62,8 +62,6 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        // If we had any authorization, it would be here.
-
         $request->validate([
             'title' => ['required'],
             'description' => ['required'],
