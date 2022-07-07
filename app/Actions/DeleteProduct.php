@@ -9,6 +9,7 @@ class DeleteProduct
 {
     public function execute(Product $product): ?bool
     {
+        $product->categories()->detach();
         $image = $product->image;
         return tap($product->delete(), fn() => Storage::disk('public')->delete($image));
     }

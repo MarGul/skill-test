@@ -25,8 +25,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->text(),
             'image' => $this->faker->imageUrl(),
             'price' => random_int(10, 100),
-            'in_stock' => $this->faker->boolean(),
-            'category_id' => Category::factory(),
+            'in_stock' => $this->faker->boolean()
         ];
     }
 }

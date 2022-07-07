@@ -61,13 +61,15 @@ class ProductController extends Controller
             "category" => ["required", Rule::exists("categories", "id")]
         ]);
 
+        $category = Category::find($attributes['category']);
+
         $product = app(CreateProduct::class)->execute(
             $attributes['title'],
             $attributes['description'],
             $attributes['image'],
             $attributes['price'],
             $attributes['in_stock'],
-            Category::find($attributes['category']),
+            $category
         );
 
         return Redirect::route('products.edit', $product, 303)->with('success', 'Product created successfully!');
@@ -105,7 +107,7 @@ class ProductController extends Controller
             "image" => ["sometimes", "nullable", "image"],
             "price" => ["required", "numeric", "min:0.1"],
             "in_stock" => ["required"],
-            "category" => ["required", Rule::exists("categories", "id")]
+            "categoriesIds" => ["required", Rule::exists("categories", "id")]
         ]);
 
         $product = app(UpdateProduct::class)->execute(
@@ -115,7 +117,7 @@ class ProductController extends Controller
             $attributes['image'] ?? null,
             $attributes['price'],
             $attributes['in_stock'],
-            $attributes['category']
+            $attributes['categoriesIds']
         );
 
         return Redirect::back()->with('success', 'Product updated successfully!');

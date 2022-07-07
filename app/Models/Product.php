@@ -26,7 +26,7 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    protected $appends = ['image_url'];
+    protected $appends = ['image_url', 'categories_ids'];
 
     /**
      * Get the product's image url.
@@ -36,5 +36,15 @@ class Product extends Model
     protected function imageUrl(): Attribute
     {
         return Attribute::make(get: fn() => filter_var($this->image, FILTER_VALIDATE_URL) ? $this->image : asset('storage/' . $this->image),);
+    }
+
+    /**
+     * Get the categoriesIds's.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function categoriesIds(): Attribute
+    {
+        return Attribute::make(get: fn() => $this->categories->pluck('id'),);
     }
 }

@@ -183,44 +183,39 @@
                                             {{ errors.in_stock[0] }}
                                         </div>
                                     </div>
-
                                     <div>
                                         <label
-                                            for="product-category"
-                                            class="block text-sm font-medium text-gray-700"
-                                        >Category</label
-                                        >
+                                            class="block text-sm font-medium text-gray-700">
+                                            Category
+                                        </label>
                                         <div
                                             class="mt-1 flex rounded-md shadow-sm"
                                         >
-                                            <select
-                                                id="product-category"
-                                                class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                                v-model="form.category"
-                                            >
-                                                <option
-                                                    value=""
-                                                    selected
-                                                    disabled
+                                            <div class="flex justify-center">
+                                                <div class="form-check form-check-inline"
+                                                     v-for="(
+                                                    title, id
+                                                ) in categories"
+                                                     :key="id"
+                                                     :value="id"
                                                 >
-                                                    -- select a category --
-                                                </option>
-                                                <option
-                                                    v-for="(
-                                                        title, id
-                                                    ) in categories"
-                                                    :key="id"
-                                                    :value="id"
-                                                >
-                                                    {{ title }}
-                                                </option>
-                                            </select>
+                                                    <input
+                                                        class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                        type="checkbox"
+                                                        id="inlineCheckbox1"
+                                                        v-model="form.categoriesIds"
+                                                        v-bind:value="id">
+                                                    <label class="form-check-label inline-block text-gray-800"
+                                                           for="inlineCheckbox1"> {{ title }}</label>
+                                                </div>
+
+                                            </div>
                                         </div>
                                         <div
                                             class="mt-1 text-sm text-red-500"
-                                            v-if="errors.category"
+                                            v-if="errors.categoriesIds"
                                         >
-                                            {{ errors.category[0] }}
+                                            {{ errors.categoriesIds[0] }}
                                         </div>
                                     </div>
                                 </div>
@@ -268,7 +263,7 @@
         price: props.product.price,
         image: null,
         in_stock: props.product.in_stock,
-        category: props.product.category_id,
+        categoriesIds: props.product.categories_ids,
     });
     const photoPreview = ref(props.product.image_url);
     const photoInput = ref(null);
