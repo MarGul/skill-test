@@ -25,7 +25,7 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function getCreatedAtAttribute($value)
+    public function getCreatedAtAttribute($value): string
     {
         return Carbon::parse($value)->format('Y-m-d H:i');
     }
