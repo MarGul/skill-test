@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\Category;
 use Tests\TestCase;
 use App\Models\Product;
 use Illuminate\Http\UploadedFile;
@@ -28,23 +29,31 @@ class ProductControllerTest extends TestCase
         Storage::fake();
 
         $product = Product::factory()->make();
+        $category = Category::factory()->create();
 
-        $this->post(route('products.store'), [
+        $payload = [
             'title' => $product->title,
             'description' => $product->description,
             'image' => UploadedFile::fake()->image('image.jpeg'),
             'price' => $product->price,
             'in_stock' => $product->in_stock,
-            'category' => $product->category->id,
-        ])
-            ->assertRedirect(route("products.update", Product::first()->id));
+            'category' => [$category->id]
+        ];
+
+        $this->assertDatabaseCount('products', 0);
+
+        $response = $this->post(route('products.store'), $payload);
+
+        $this->assertDatabaseCount('products', 1);
+
+        // Defaults to the ID: 1.
+        $response->assertRedirect(route('products.edit', 1));
 
         $this->assertDatabaseCount('products', 1);
         $this->assertDatabaseHas('products', [
             'title' => $product->title,
             'description' => $product->description,
             'price' => $product->price,
-            'category_id' => $product->category->id,
             'in_stock' => $product->in_stock,
         ]);
         $this->assertFileExists(Storage::disk('public')->path(Product::first()->image));
@@ -65,26 +74,35 @@ class ProductControllerTest extends TestCase
 
         $product = Product::factory()->create();
         $updatedProduct = Product::factory()->make();
+        $category = Category::factory()->create();
 
-        $this->from(route("products.edit", $product->id))
-            ->patch(route('products.update', $product->id), [
-                'title' => $updatedProduct->title,
-                'description' => $updatedProduct->description,
-                'image' => UploadedFile::fake()->image('image.jpeg'),
-                'price' => $updatedProduct->price,
-                'in_stock' => $updatedProduct->in_stock,
-                'category' => $updatedProduct->category->id,
-            ])
-            ->assertRedirect(route("products.edit", $product->id));
+        $payload = [
+            'title' => $updatedProduct->title,
+            'description' => $updatedProduct->description,
+            'image' => UploadedFile::fake()->image('image.jpeg'),
+            'price' => $updatedProduct->price,
+            'in_stock' => $updatedProduct->in_stock,
+            'categoriesIds' => [$category->id],
+        ];
 
         $this->assertDatabaseCount('products', 1);
-        $this->assertDatabaseHas('products', [
+
+        $response = $this->patch(route('products.update', $product), $payload, [
+            'HTTP_REFERER' => route('products.edit', $product)
+        ]);
+
+        $this->assertDatabaseCount('products', 1);
+
+        $response->assertRedirect(route('products.edit', $product));
+
+        $this->assertDatabaseHas('products',  [
             'title' => $updatedProduct->title,
             'description' => $updatedProduct->description,
             'price' => $updatedProduct->price,
-            'category_id' => $updatedProduct->category->id,
             'in_stock' => $updatedProduct->in_stock,
         ]);
+        $this->assertDatabaseCount('products', 1);
+
         $this->assertFileExists(Storage::disk('public')->path(Product::first()->image));
     }
 
@@ -100,7 +118,6 @@ class ProductControllerTest extends TestCase
             'description' => $updatedProduct->description,
             'price' => $updatedProduct->price,
             'in_stock' => $updatedProduct->in_stock,
-            'category' => $updatedProduct->category->id,
         ]);
 
         $this->assertSame($product->image, $product->refresh()->image);
@@ -121,7 +138,6 @@ class ProductControllerTest extends TestCase
             'image' => UploadedFile::fake()->create('image.jpeg'),
             'price' => $updatedProduct->price,
             'in_stock' => $updatedProduct->in_stock,
-            'category' => $updatedProduct->category->id,
         ]);
 
         $this->assertFileDoesNotExist($product->image);
