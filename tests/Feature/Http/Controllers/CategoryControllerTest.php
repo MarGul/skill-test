@@ -25,7 +25,7 @@ class CategoryControllerTest extends TestCase
         $this->assertDatabaseCount('categories', 1);
 
         // Defaults to the ID: 1.
-        $response->assertRedirect(route('categories.edit', 1));
+        $response->assertRedirect(route('categories.index'));
 
         $this->assertDatabaseHas('categories', [
             'title' => $payload['title'],
@@ -50,7 +50,7 @@ class CategoryControllerTest extends TestCase
 
         $this->assertDatabaseCount('categories', 1);
 
-        $response->assertRedirect(route('categories.edit', $category));
+        $response->assertRedirect(route('categories.index'));
 
         $this->assertDatabaseHas('categories', [
             'title' => $payload['title'],

@@ -1,0 +1,43 @@
+.product-table-image {
+    width: 200px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+}
+.full-size-product-image {
+    width: 500px;
+    height: 400px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bg-danger {
+    background-color: #b21f2d;
+}
+
+.hover\:bg-dark-danger:hover {
+    background-color: #57040d;
+}
+
+.confirm-modal {
+    background-color: rgba(0,0,0, 0.5);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: 0.55s opacity, 0.55s visibility;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.bg-yellow-500 {
+    background-color: rgba(245, 184, 15, 1);
+}
